@@ -33,8 +33,10 @@ public class StaffRatingControllers {
 
   @GetMapping("/ratings/create")
   public String createNewRating(Model model){
-    return "newRating";
+    return "form";
   }
+
+  // TODO: POST MAPPING FOR /ratings/create for the form submission
   
   
 }
