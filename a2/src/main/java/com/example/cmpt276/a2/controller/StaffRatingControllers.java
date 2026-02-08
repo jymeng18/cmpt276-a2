@@ -11,7 +11,10 @@ import com.example.cmpt276.a2.repository.StaffRatingRepository;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -36,7 +39,15 @@ public class StaffRatingControllers {
     return "form";
   }
 
-  // TODO: POST MAPPING FOR /ratings/create for the form submission
-  
+  @PostMapping("/ratings")
+  public String postMethodName(@ModelAttribute StaffRating rating, Model model) {
+
+    // Insert data into db, then rerender
+    staffRatingRepo.save(rating);
+    List<StaffRating> ratings = staffRatingRepo.findAll();
+    model.addAttribute("ratings", ratings);
+    return "index";
+  }
+    
   
 }
