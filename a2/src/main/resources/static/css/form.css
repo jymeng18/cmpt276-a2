@@ -12,3 +12,7 @@ body {
 .submit-btn {
   text-align: center;
 }
+
+.btn-prev {
+  margin-top: 0.5rem;
+}

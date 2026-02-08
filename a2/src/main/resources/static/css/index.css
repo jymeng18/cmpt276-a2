@@ -8,12 +8,28 @@ body {
 header {
     text-align: center;
     margin-top: 2em;
+    text-shadow: 1px 2px 1px black;
 }
 
 footer {
+    background-color: rgb(186, 219, 249);
     text-align: center;
     margin-top: 3em;
-    color: #888;
-    font-size: 0.9em;
-    padding-bottom: 1em;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 1.5rem;
+}
+
+.subheader {
+  padding: 1rem;
+  background-color: rgb(186, 219, 249);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.subheader button {
+  font-size: large;
+  max-width: 150px;
+  width: 100%;
+  border-radius: 7px;
 }
