@@ -111,11 +111,16 @@ public class StaffRatingControllers {
     // User edit submission
     @PostMapping("/ratings/edit/{id}")
     public String putMethodName(@PathVariable("id") Long id, @Valid @ModelAttribute StaffRating editedRating, 
-    BindingResult bindingResult, Model model) {
+    BindingResult bindingResult, RedirectAttributes redirectAttributes) {
       
       if(bindingResult.hasErrors()){
-        model.addAttribute("errorMessage", bindingResult.getFieldError().getDefaultMessage());
-        return "edit";
+        redirectAttributes.addFlashAttribute("errorMessage", bindingResult.getFieldError().getDefaultMessage());
+        return "redirect:/ratings/edit/" + id;
+      }
+
+      if (staffRatingRepo.findByEmail(editedRating.getEmail()).isPresent() && editedRating.getId() != staffRatingRepo.findById(id).get().getId()) {
+        redirectAttributes.addFlashAttribute("errorMessage", "Email already exists.");
+        return "redirect:/ratings/edit/" + id;
       }
 
       // Update previous entry in db
@@ -123,8 +128,8 @@ public class StaffRatingControllers {
         editedRating.setId(id);
         staffRatingRepo.save(editedRating);
       } else {
-        model.addAttribute("errorMessage", "Edited entry does not exist.");
-        return "edit";
+        redirectAttributes.addFlashAttribute("errorMessage", "Edited entry does not exist.");
+        return "redirect:/ratings/edit/" + id;
       }
 
       return "redirect:/";
