@@ -10,9 +10,12 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="/css/index.css" />
   </head>
   <body>
-    <h1>Rate CS Teaching Staff</h1>
+    <header>
+      <h1>Rate CS Teaching Staff</h1>
+    </header>
     <main>
       <table class="table table-striped">
         <thead>
@@ -27,24 +30,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>10</td>
-          </tr>
-          <tr>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
+          <tr th:each="rating : ${ratings}">
+            <td th:text="${rating.name}">John</td>
+            <td th:text="${rating.email}">john123@gmail.com</td>
+            <td th:text="${rating.roleType}">Professor</td>
+            <td th:text="${rating.clarity}">10</td>
+            <td th:text="${rating.niceness}">7</td>
+            <td th:text="${rating.knowledgeableScore}">5</td>
+            <td th:text="${rating.comment}"></td>
           </tr>
         </tbody>
       </table>
     </main>
+    <footer>
+      &copy; Jerry Meng CMPT276 A2.
+    </footer>
   </body>
 </html>
