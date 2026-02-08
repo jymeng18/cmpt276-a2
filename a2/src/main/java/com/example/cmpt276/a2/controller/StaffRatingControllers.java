@@ -1,5 +1,7 @@
 package com.example.cmpt276.a2.controller;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,21 @@ public class StaffRatingControllers {
   @GetMapping("/")
   public String getAllStaffRatings(Model model){
     List<StaffRating> ratings = staffRatingRepo.findAll();
+    System.out.println(ratings);
     model.addAttribute("ratings", ratings);
+
+    ArrayList<Double> avgRatings = new ArrayList<>();
+    for(StaffRating r : ratings){
+      double clarity = r.getClarity();
+      double niceness = r.getNiceness();
+      double knowledgeableScore = r.getKnowledgeableScore();
+
+      double avg = (clarity + niceness + knowledgeableScore) / 3.0;
+
+      avgRatings.add(avg);
+    }
+
+    model.addAttribute("avgRatings", avgRatings);
     return "index";
   }
 
@@ -46,6 +62,19 @@ public class StaffRatingControllers {
     staffRatingRepo.save(rating);
     List<StaffRating> ratings = staffRatingRepo.findAll();
     model.addAttribute("ratings", ratings);
+
+    ArrayList<Double> avgRatings = new ArrayList<>();
+    for(StaffRating r : ratings){
+      double clarity = r.getClarity();
+      double niceness = r.getNiceness();
+      double knowledgeableScore = r.getKnowledgeableScore();
+
+      double avg = (clarity + niceness + knowledgeableScore) / 3.0;
+
+      avgRatings.add(avg);
+    }
+
+    model.addAttribute("avgRatings", avgRatings);
     return "index";
   }
     
