@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class StaffRatingControllers {
@@ -70,31 +73,17 @@ public class StaffRatingControllers {
         }
 
         staffRatingRepo.save(rating);
-        List<StaffRating> ratings = staffRatingRepo.findAll();
-        model.addAttribute("ratings", ratings);
-
-        ArrayList<Double> avgRatings = new ArrayList<>();
-        for (StaffRating r : ratings) {
-            double clarity = r.getClarity();
-            double niceness = r.getNiceness();
-            double knowledgeableScore = r.getKnowledgeableScore();
-
-            double avg = (clarity + niceness + knowledgeableScore) / 3.0;
-            avgRatings.add(avg);
-        }
-
-        model.addAttribute("avgRatings", avgRatings);
-        return "index";
+        return "redirect:/";
     }
 
     // View in detail
     @GetMapping("/ratings/{id}")
-    public String getRatingDetail(@PathVariable("id") Long id, Model model) {
+    public String getRatingDetail(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Optional<StaffRating> detailedRating = staffRatingRepo.findById(id);
 
         if (detailedRating.isEmpty()) {
-            model.addAttribute("errorMessage", "Staff rating not found.");
-            return "index";
+            redirectAttributes.addFlashAttribute("errorMessage", "Staff rating not found.");
+            return "redirect:/";
         }
 
         StaffRating rating = detailedRating.get();
@@ -108,15 +97,37 @@ public class StaffRatingControllers {
 
     // Display edit form
     @GetMapping("/ratings/edit/{id}")
-    public String getEditForm(@PathVariable("id") Long id, Model model) {
+    public String getEditForm(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Optional<StaffRating> rating = staffRatingRepo.findById(id);
 
         if (rating.isEmpty()) {
-            model.addAttribute("errorMessage", "Staff Rating Entry not found!");
-            return "index";
+            redirectAttributes.addFlashAttribute("errorMessage", "Staff Rating Entry not found!");
+            return "redirect:/";
         }
-        model.addAttribute(rating.get());
+        model.addAttribute("previousRating", rating.get());
         return "edit";
+    }
+
+    // User edit submission
+    @PostMapping("/ratings/edit/{id}")
+    public String putMethodName(@PathVariable("id") Long id, @Valid @ModelAttribute StaffRating editedRating, 
+    BindingResult bindingResult, Model model) {
+      
+      if(bindingResult.hasErrors()){
+        model.addAttribute("errorMessage", bindingResult.getFieldError().getDefaultMessage());
+        return "edit";
+      }
+
+      // Update previous entry in db
+      if(staffRatingRepo.existsById(id)){
+        editedRating.setId(id);
+        staffRatingRepo.save(editedRating);
+      } else {
+        model.addAttribute("errorMessage", "Edited entry does not exist.");
+        return "edit";
+      }
+
+      return "redirect:/";
     }
 
 }
