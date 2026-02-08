@@ -65,7 +65,7 @@ public class StaffRating {
     @Max(value = 10, message = "Max val is 10.")
     private Integer knowledgeableScore;
 
-    @Size(min = 1, max = 400)
+    @Size(min = 0, max = 400)
     private String comment;
 
     @CreationTimestamp

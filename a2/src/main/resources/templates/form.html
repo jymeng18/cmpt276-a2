@@ -18,6 +18,11 @@
         <article class="col-md-6">
           <section class="form-container">
             <h2 class="mb-4">Submit Staff Rating</h2>
+            
+            <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+              <span th:text="${errorMessage}">Error message</span>
+            </div>
+
             <form method="post" th:action="@{/ratings}">
               <div class="form-group">
                 <label for="name">Name</label>
