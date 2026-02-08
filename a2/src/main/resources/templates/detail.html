@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Staff Rating Details</title>
+</head>
+<body>
+    <h1>Details for <span th:text="${rating.name}"></span></h1>
+    <ul>
+        <li>Email: <span th:text="${rating.email}"></span></li>
+        <li>Niceness: <span th:text="${rating.niceness}"></span></li>
+        <li>Clarity: <span th:text="${rating.clarity}"></span></li>
+        <li>Knowledge: <span th:text="${rating.knowledgeableScore}"></span></li>
+        <li>Average: <span th:text="${#numbers.formatDecimal(avg, 1, 2)} + ' / 10'"></span></li>
+    </ul>
+    <a href="/" >Back to List</a>
+</body>
+</html>

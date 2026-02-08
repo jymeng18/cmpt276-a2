@@ -14,8 +14,10 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class StaffRatingControllers {
@@ -30,7 +32,6 @@ public class StaffRatingControllers {
   @GetMapping("/")
   public String getAllStaffRatings(Model model){
     List<StaffRating> ratings = staffRatingRepo.findAll();
-    System.out.println(ratings);
     model.addAttribute("ratings", ratings);
 
     ArrayList<Double> avgRatings = new ArrayList<>();
@@ -49,12 +50,12 @@ public class StaffRatingControllers {
   }
 
   @GetMapping("/ratings/create")
-  public String createNewRating(Model model){
+  public String getRatingForm(Model model){
     return "form";
-  }
+  } 
 
   @PostMapping("/ratings")
-  public String postMethodName(@Valid @ModelAttribute StaffRating rating, BindingResult bindingResult, Model model) {
+  public String createNewRating(@Valid @ModelAttribute StaffRating rating, BindingResult bindingResult, Model model) {
 
     if (bindingResult.hasErrors()) {
       model.addAttribute("errorMessage", bindingResult.getFieldError().getDefaultMessage());
@@ -85,5 +86,24 @@ public class StaffRatingControllers {
     return "index";
   }
     
+  @GetMapping("/ratings/{id}")
+  public String getRatingDetail(@PathVariable("id") Long id, Model model) {
+    Optional<StaffRating> detailedRating = staffRatingRepo.findById(id);
+    
+    if (detailedRating.isEmpty()) {
+      model.addAttribute("errorMessage", "Staff rating not found.");
+      System.out.println("TEST");
+      return "index"; 
+    }
+    
+    StaffRating rating = detailedRating.get();
+    double avg = (rating.getClarity() + rating.getNiceness() + rating.getKnowledgeableScore()) / 3.0;
+    
+    model.addAttribute("rating", rating);
+    model.addAttribute("avg", avg);
   
+    return "detail";
+  } 
+  
+
 }
