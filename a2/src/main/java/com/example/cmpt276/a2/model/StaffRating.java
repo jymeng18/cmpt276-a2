@@ -160,4 +160,20 @@ public class StaffRating {
         this.updatedAt = updatedAt;
     }
 
+    // Polymorphic method to get the appropriate staff profile
+    public StaffMemberProfile getProfile() {
+        switch (this.roleType) {
+            case TA:
+                return new TAProfile();
+            case PROF:
+                return new ProfessorProfile();
+            case STAFF:
+                return new StaffProfile();
+            case INSTRUCTOR:
+                return new InstructorProfile();
+            default:
+                return new StaffProfile();
+        }
+    }
+
 }

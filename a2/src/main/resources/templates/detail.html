@@ -9,6 +9,7 @@
       <h1>Details for <span th:text="${rating.name}"></span></h1>
       <ul>
         <li>Email: <span th:text="${rating.email}"></span></li>
+        <li>Role: <span th:text="${rating.profile.displayTitle}"></span></li>
         <li>Niceness: <span th:text="${rating.niceness}"></span></li>
         <li>Clarity: <span th:text="${rating.clarity}"></span></li>
         <li>Knowledge: <span th:text="${rating.knowledgeableScore}"></span></li>
