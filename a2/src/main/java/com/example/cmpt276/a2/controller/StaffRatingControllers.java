@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
@@ -134,5 +133,17 @@ public class StaffRatingControllers {
 
       return "redirect:/";
     }
+
+    @PostMapping("/ratings/delete/{id}")
+    public String deleteRating(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        if(!staffRatingRepo.findById(id).isPresent()){
+            redirectAttributes.addFlashAttribute("errorMessage", "Entry does not exist.");
+            return "redirect:/ratings/" + id;
+        }
+
+        staffRatingRepo.deleteById(id);
+        return "redirect:/";
+    }
+    
 
 }
