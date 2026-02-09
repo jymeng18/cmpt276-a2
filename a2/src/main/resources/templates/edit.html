@@ -52,10 +52,10 @@
                 <label for="roleType">Role Type</label>
                 <select class="form-control" id="roleType" name="roleType" required>
                   <option value="">Select role...</option>
-                  <option value="TA">TA</option>
-                  <option value="PROF">Professor</option>
-                  <option value="STAFF">Staff</option>
-                  <option value="INSTRUCTOR">Instructor</option>
+                  <option value="TA" th:selected="${previousRating.roleType.name() == 'TA'}">TA</option>
+                  <option value="PROF" th:selected="${previousRating.roleType.name() == 'PROF'}">Professor</option>
+                  <option value="STAFF" th:selected="${previousRating.roleType.name() == 'STAFF'}">Staff</option>
+                  <option value="INSTRUCTOR" th:selected="${previousRating.roleType.name() == 'INSTRUCTOR'}">Instructor</option>
                 </select>
               </div>
         

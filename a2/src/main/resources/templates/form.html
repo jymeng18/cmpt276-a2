@@ -32,6 +32,7 @@
                   id="name"
                   name="name"
                   placeholder="Enter staff name"
+                  th:value="${rating?.name}"
                   required
                 />
               </div>
@@ -44,6 +45,7 @@
                   id="email"
                   name="email"
                   placeholder="Enter email"
+                  th:value="${rating?.email}"
                   required
                 />
               </div>
@@ -52,10 +54,10 @@
                 <label for="roleType">Role Type</label>
                 <select class="form-control" id="roleType" name="roleType" required>
                   <option value="">Select role...</option>
-                  <option value="TA">TA</option>
-                  <option value="PROF">Professor</option>
-                  <option value="STAFF">Staff</option>
-                  <option value="INSTRUCTOR">Instructor</option>
+                  <option value="TA" th:selected="${rating?.roleType?.name() == 'TA'}">TA</option>
+                  <option value="PROF" th:selected="${rating?.roleType?.name() == 'PROF'}">Professor</option>
+                  <option value="STAFF" th:selected="${rating?.roleType?.name() == 'STAFF'}">Staff</option>
+                  <option value="INSTRUCTOR" th:selected="${rating?.roleType?.name() == 'INSTRUCTOR'}">Instructor</option>
                 </select>
               </div>
         
@@ -69,6 +71,7 @@
                   min="1"
                   max="10"
                   placeholder="Rate clarity"
+                  th:value="${rating?.clarity}"
                   required
                 />
               </div>
@@ -83,6 +86,7 @@
                   min="1"
                   max="10"
                   placeholder="Rate niceness"
+                  th:value="${rating?.niceness}"
                   required
                 />
               </div>
@@ -97,6 +101,7 @@
                   min="1"
                   max="10"
                   placeholder="Rate knowledge"
+                  th:value="${rating?.knowledgeableScore}"
                   required
                 />
               </div>
@@ -109,6 +114,7 @@
                   name="comment"
                   rows="4"
                   placeholder="Enter your comment (optional)"
+                  th:text="${rating?.comment}"
                   maxlength="400"
                 ></textarea>
               </div>

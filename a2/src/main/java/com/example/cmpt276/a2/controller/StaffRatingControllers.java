@@ -20,8 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import java.util.Optional;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @Controller
 public class StaffRatingControllers {
@@ -62,12 +60,14 @@ public class StaffRatingControllers {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("errorMessage", bindingResult.getFieldError().getDefaultMessage());
+            model.addAttribute("rating", rating);
             return "form";
         }
 
         // Check email uniqueness
         if (staffRatingRepo.findByEmail(rating.getEmail()).isPresent()) {
             model.addAttribute("errorMessage", "Email already exists.");
+            model.addAttribute("rating", rating);
             return "form";
         }
 
