@@ -117,7 +117,9 @@ public class StaffRatingControllers {
         return "redirect:/ratings/edit/" + id;
       }
 
-      if (staffRatingRepo.findByEmail(editedRating.getEmail()).isPresent() && editedRating.getId() != staffRatingRepo.findById(id).get().getId()) {
+      Optional<StaffRating> existingWithEmail = staffRatingRepo.findByEmail(editedRating.getEmail());
+
+      if (existingWithEmail.isPresent() && !existingWithEmail.get().getId().equals(id)) {
         redirectAttributes.addFlashAttribute("errorMessage", "Email already exists.");
         return "redirect:/ratings/edit/" + id;
       }

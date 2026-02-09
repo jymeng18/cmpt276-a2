@@ -53,14 +53,17 @@ public class StaffRating {
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
 
+    @NotNull
     @Min(value = 1, message = "Val must be at least 1.")
     @Max(value = 10, message = "Max val is 10.")
     private Integer clarity;
 
+    @NotNull
     @Min(value = 1, message = "Val must be at least 1.")
     @Max(value = 10, message = "Max val is 10.")
     private Integer niceness;
 
+    @NotNull
     @Min(value = 1, message = "Val must be at least 1.")
     @Max(value = 10, message = "Max val is 10.")
     private Integer knowledgeableScore;
