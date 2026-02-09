@@ -25,7 +25,8 @@
       <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
         <span th:text="${errorMessage}"></span>
       </div>
-      <table class="table table-striped">
+      <div class="table-container">
+        <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">Name</th>
@@ -53,6 +54,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
     </main>
     <footer>&copy; Jerry Meng CMPT276 A2.</footer>
   </body>
