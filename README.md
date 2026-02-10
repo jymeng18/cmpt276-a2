@@ -6,7 +6,7 @@ Jerry Meng - 301612333
 2026-02-10
 
 # Usage of AI:
-A few lines in form.css and index.css for some minmal styling for the UI,
+~40-50 lines in form.css and index.css for some minmal styling for the UI,
 and the factory design in StaffRatingTest.java.
 
 # How to Run Locally
@@ -25,3 +25,9 @@ Create a Dockerfile first that containerizes our application, then replace the s
 in application.properties with environment variables. For example DATABASE_URL=${sensitive_data}, and on Render
 when we deploy, we can add our environment variables with the sensitive information, to ensure
 no security issues occur with our app.
+
+# Credit
+
+Tables and Form Submissions in the main page are taken directly from Bootstrap,
+as well as the buttons, they can be identified with the class="primary-btn secondary-btn"
+syntax in the HTML.
