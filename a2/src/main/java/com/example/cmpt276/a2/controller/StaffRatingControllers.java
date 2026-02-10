@@ -109,7 +109,7 @@ public class StaffRatingControllers {
 
     // User edit submission
     @PostMapping("/ratings/edit/{id}")
-    public String putMethodName(@PathVariable("id") Long id, @Valid @ModelAttribute StaffRating editedRating, 
+    public String editRating(@PathVariable("id") Long id, @Valid @ModelAttribute StaffRating editedRating, 
     BindingResult bindingResult, RedirectAttributes redirectAttributes) {
       
       if(bindingResult.hasErrors()){
