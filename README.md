@@ -14,3 +14,8 @@ to ensure full functionality, you need to create an applications.properties or i
 and connect your application with your Database.
 
 # How to Deploy on Render
+
+Create a Dockerfile first that containerizes our application, then replace the sensitive information 
+in application.properties with environment variables. For example DATABASE_URL=${info}, and on Render
+when we deploy, we can add our environment variables with the sensitive information, to ensure
+no security issues occur with our app.
